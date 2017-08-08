@@ -12,6 +12,8 @@ app.set("view engine", "handlebars");
 
 app.use(express.static('public'));
 
+mongoose.Promise = require('bluebird');
+
 var databaseUri = "mongodb://localhost/scraper"
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI, {
