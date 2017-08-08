@@ -4,6 +4,7 @@ var cheerio = require('cheerio');
 var request = require('request');
 var mongoose = require('mongoose');
 var Article = require('../models/article');
+var Comment = require('../models/comment');
 
 router.get('/', function(req, res) {
   res.render('index');
@@ -30,9 +31,14 @@ router.get('/scrape', function(req, res) {
       var promise = Article.find({ heading: heading, url: url }).exec();
       promise.then(function(res) {
         if (res.length === 0) {
-          newArticle.save(function(err) {
-            count++;
-            console.log("Article stored");
+          newArticle.save(function(err, doc) {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              count++;
+              console.log("Article stored");
+            }
           });
         }
       });
