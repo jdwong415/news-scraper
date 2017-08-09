@@ -67,6 +67,19 @@ router.post("/articles/saved/:id", function(req, res) {
   });
 });
 
+router.post("/articles/comment/:id", function(req, res) {
+  var newComment = new Comment(req.body);
+  newComment.save(function(err, doc) {
+    if (err) console.log(err);
+    else {
+      Article.findOneAndUpdate({_id: req.params.id}, { $push: {comments: doc._id}}, {new: true}, function(error, newdoc) {
+        if (error) res.send(error);
+        else res.send(newdoc);
+      });
+    }
+  });
+});
+
 router.get("/articles/:id", function(req, res) {
   Article.findOne({ _id: req.params.id }).populate("comments").exec(function(err, doc) {
     if (err) console.log(err);

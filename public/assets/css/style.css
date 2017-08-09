@@ -18,7 +18,8 @@
   padding: 0;
 }
 
-.save-button {
+.save-button, .comment-button {
   float: right;
   margin-top: 3px;
+  margin-left: 10px;
 }
