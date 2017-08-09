@@ -1,0 +1,24 @@
+.logo {
+  padding-top: 11px;
+}
+
+.main {
+  padding-top: 70px;
+}
+
+#scrape-text {
+  margin: 40px 0px;
+}
+
+.heading, .save-button {
+  display: inline-block;
+}
+
+.heading {
+  padding: 0;
+}
+
+.save-button {
+  float: right;
+  margin-top: 3px;
+}

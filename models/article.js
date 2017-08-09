@@ -12,6 +12,9 @@ var articleSchema = new Schema({
     required: true,
     unique: true
   },
+  summary: {
+    type: String
+  },
   saved: {
     type: Boolean,
     default: false
@@ -19,7 +22,11 @@ var articleSchema = new Schema({
   comments: [{
     type: Schema.Types.ObjectId,
     ref: "Comment"
-  }]
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 var Article = mongoose.model('Article', articleSchema);
