@@ -12,6 +12,10 @@ var articleSchema = new Schema({
     required: true,
     unique: true
   },
+  saved: {
+    type: Boolean,
+    default: false
+  },
   comments: [{
     type: Schema.Types.ObjectId,
     ref: "Comment"

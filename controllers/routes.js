@@ -11,34 +11,29 @@ router.get('/', function(req, res) {
 });
 
 router.get('/scrape', function(req, res) {
-  request("http://www.nytimes.com/section/technology", function(error, response, body) {
+  request("http://m.mlb.com/sf/news", function(error, response, body) {
+
     var $ = cheerio.load(body);
     var arr = [];
     var articles = [];
     var count = 0;
 
-    $(".story").each(function(i, element) {
-      var heading = $(element).find("h2").text().trim();
-      var url = $(element).find("a").attr("href");
+    $(".bam-article").each(function(i, element) {
+      var heading = $(element).find("h1.headline").text();
+      var url = $(element).find("a.more").attr("href");
 
       var newArticle = Article({
         heading: heading,
         url: url
       });
-
       articles.push(newArticle);
 
       var promise = Article.find({ heading: heading, url: url }).exec();
       promise.then(function(res) {
         if (res.length === 0) {
           newArticle.save(function(err, doc) {
-            if (err) {
-              console.log(err);
-            }
-            else {
-              count++;
-              console.log("Article stored");
-            }
+            count++;
+            console.log("Article stored");
           });
         }
       });
