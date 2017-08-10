@@ -107,7 +107,7 @@ h4.heading:hover {
   text-shadow: 0 1px 0 #000;
 }
 
-.close-btn:hover {
+.close-btn:hover, .close-btn:focus {
   color: #FB5B1F;
   opacity: 0.8;
 }
