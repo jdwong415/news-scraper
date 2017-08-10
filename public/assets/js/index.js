@@ -1,5 +1,6 @@
 getArticles();
 
+// Scrape new articles
 $("#scrape").on("click", function() {
   $.get("/scrape", function(data) {
     $("#scrape-text").text("Added new articles.");
@@ -7,6 +8,12 @@ $("#scrape").on("click", function() {
   });
 });
 
+// Reload after modal close
+$(".modal").on('hidden.bs.modal', function () {
+  location.reload();
+});
+
+// Save articles
 $("body").on("click", ".save-button", function() {
   var id = $(this).attr("data-id")
   var saved = $(this).attr("value");
@@ -16,6 +23,7 @@ $("body").on("click", ".save-button", function() {
   });
 });
 
+// Get articles
 function getArticles() {
   $.get("/articles", function(data) {
     $("#all-articles").empty();
