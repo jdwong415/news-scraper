@@ -29,15 +29,15 @@ function getArticles() {
     }
     else {
       data.forEach(function(val) {
-        var link = $("<a>").attr("href", "http://m.mlb.com" + val.url).text(val.heading);
-        var heading = $("<h4>").addClass("heading panel-heading").html(link);
-        var saveButton = $("<button>").addClass("btn btn-secondary save-button");
+        var heading = $("<h4>").addClass("heading panel-heading").text(val.heading);
+        var link = $("<a>").attr("href", "http://m.mlb.com" + val.url).html(heading);
+        var saveButton = $("<button>").addClass("btn btn-default save-button");
         saveButton.attr("type", "button").attr("data-id", val._id).attr("value", true).text("Save");
         var summary = $("<p>").addClass("summary").text(val.summary);
         var newDiv = $("<div>").addClass("panel panel-default article-div").attr("id", val._id);
         var panelHeading = $("<div>").addClass("panel-heading");
         var panelBody = $("<div>").addClass("panel-body");
-        panelHeading.append(heading);
+        panelHeading.append(link);
         panelHeading.append(saveButton);
         panelBody.append(summary);
         newDiv.append(panelHeading);

@@ -1,9 +1,25 @@
+body {
+  background-image: url("http://sanfrancisco.giants.mlb.com/sf/images/fan_forum/y2017/SFG17_Wallpapers_1920x1080_Bumgarner.jpg");
+  background-position: center center;
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
 .logo {
   padding-top: 11px;
 }
 
 .main {
-  padding-top: 70px;
+  padding-top: 90px;
+}
+
+.navbar-inverse .navbar-nav>.active>a {
+  color: #FB5B1F;
+}
+
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+  color: #fff;
 }
 
 #scrape-text {
@@ -35,12 +51,12 @@
 .delete-comment {
   float: right;
   font-size: 24px;
-  color: red;
+  color: #FB5B1F;
   opacity: 1.0;
 }
 
 .delete-comment:hover, .delete-comment:focus {
-  color: #800000;
+  color: #BB4417;
   opacity: 1.0;
 }
 
@@ -50,10 +66,48 @@
 }
 
 .validate {
-  color: red;
+  color: #FF0000;
 }
 
 #name-validate,
 #comment-validate {
   display: none;
+}
+
+h4.heading {
+  color: #fff;
+  font-weight: bold;
+}
+
+h4.heading:hover {
+  color: #FB5B1F;
+}
+
+.panel {
+  border: 0;
+}
+
+.panel-default>.panel-heading {
+  background-color: #333;
+  border-bottom: 3px solid #FB5B1F;
+}
+
+.modal-header {
+  background-color: #333;
+  border-bottom: 3px solid #FB5B1F;
+}
+
+.modal-title {
+  color: #fff;
+}
+
+.close-btn {
+  color: #fff;
+  opacity: 0.5;
+  text-shadow: 0 1px 0 #000;
+}
+
+.close-btn:hover {
+  color: #FB5B1F;
+  opacity: 0.8;
 }
