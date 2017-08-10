@@ -34,14 +34,12 @@ router.get('/scrape', function(req, res) {
             if (err) {}
             else {
               count++;
-              console.log(count);
               console.log("Article stored");
             }
           });
         }
       });
     });
-    console.log(count);
     res.json({ count: count });
   });
 });

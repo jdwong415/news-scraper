@@ -2,7 +2,7 @@ getArticles();
 
 $("#scrape").on("click", function() {
   $.get("/scrape", function(data) {
-    $("#scrape-text").text("Added " + data.count + " new articles.");
+    $("#scrape-text").text("Added new articles.");
     $("#scrape-modal").modal("toggle");
   });
 });
