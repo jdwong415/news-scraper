@@ -40,11 +40,8 @@ body {
   margin-left: 10px;
 }
 
-.author, .delete {
-  display: inline-block;
-}
-
 .author {
+  display: inline-block;
   margin-bottom: 5px;
 }
 
