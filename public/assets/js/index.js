@@ -32,7 +32,7 @@ function getArticles() {
         var heading = $("<h4>").addClass("heading panel-heading").text(val.heading);
         var link = $("<a>").attr("href", "http://m.mlb.com" + val.url).html(heading);
         var saveButton = $("<button>").addClass("btn btn-default save-button");
-        saveButton.attr("type", "button").attr("data-id", val._id).attr("value", true).text("Save");
+        saveButton.attr("type", "button").attr("data-id", val._id).attr("value", true).html('<i class="fa fa-bookmark-o" aria-hidden="true"></i> Save');
         var summary = $("<p>").addClass("summary").text(val.summary);
         var newDiv = $("<div>").addClass("panel panel-default article-div").attr("id", val._id);
         var panelHeading = $("<div>").addClass("panel-heading");

@@ -85,9 +85,9 @@ function getSavedArticles() {
         var heading = $("<h4>").addClass("heading panel-heading").text(val.heading);
         var link = $("<a>").attr("href", "http://m.mlb.com" + val.url).html(heading);
         var saveButton = $("<button>").addClass("btn btn-default save-button");
-        saveButton.attr("type", "button").attr("data-id", val._id).attr("value", false).text("Remove");
+        saveButton.attr("type", "button").attr("data-id", val._id).attr("value", false).html('<i class="fa fa-times" aria-hidden="true"></i> Remove');
         var commentButton = $("<button>").addClass("btn btn-default comment-button");
-        commentButton.attr("type", "button").attr("data-id", val._id).text("Comment");
+        commentButton.attr("type", "button").attr("data-id", val._id).html('<i class="fa fa-commenting-o" aria-hidden="true"></i> Comment');
         var summary = $("<p>").addClass("summary").text(val.summary);
         var newDiv = $("<div>").addClass("panel panel-default article-div").attr("id", val._id);
         var panelHeading = $("<div>").addClass("panel-heading");
