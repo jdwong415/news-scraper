@@ -3,7 +3,13 @@ getArticles();
 // Scrape new articles
 $("#scrape").on("click", function() {
   $.get("/scrape", function(data) {
-    $("#scrape-text").text("Added new articles.");
+    console.log(data);
+    if (data.count === 0) {
+      $("#scrape-text").text("There are no new articles to scrape.");
+    }
+    else {
+      $("#scrape-text").text("Added " + data.count + " new articles.");
+    }
     $("#scrape-modal").modal("toggle");
   });
 });

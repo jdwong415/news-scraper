@@ -15,32 +15,50 @@ router.get('/scrape', function(req, res) {
 
     var $ = cheerio.load(body);
     var count = 0;
+    var added = 0;
+    var length = $(".bam-article").length;
 
-    $(".bam-article").each(function(i, element) {
-      var heading = $(element).find("h1.headline").text();
-      var url = $(element).find("a.more").attr("href");
-      var summary = $(element).find(".blurb").find("p").text();
+    function scrape() {
+      if (count < length) {
+        var element = $(".bam-article")[count];
+        var heading = $(element).find("h1.headline").text();
+        var url = $(element).find("a.more").attr("href");
+        var summary = $(element).find(".blurb").find("p").text();
 
-      var newArticle = new Article({
-        heading: heading,
-        url: url,
-        summary: summary
-      });
+        var newArticle = {
+          heading: heading,
+          url: url,
+          summary: summary
+        };
 
-      var promise = Article.find({ heading: heading, url: url }).exec();
-      promise.then(function(res) {
-        if (res.length === 0) {
-          newArticle.save(function(err, doc) {
-            if (err) {}
-            else {
-              count++;
-              console.log("Article stored");
-            }
-          });
-        }
-      });
-    });
-    res.json({ count: count });
+        var promise = Article.findOne({heading: heading}).exec();
+        promise.then(function(res) {
+          if (!res) {
+            newArticle = Article(newArticle);
+            newArticle.save(function(err) {
+              if (err) {
+                console.log(err);
+              }
+              else {
+                added++;
+                count++;
+                console.log("Article stored");
+                scrape();
+              }
+            });
+          }
+          else {
+            count++;
+            scrape();
+          }
+        });
+      }
+      else {
+        console.log("Scrape completed");
+        res.json({count: added});
+      }
+    }
+    scrape();
   });
 });
 
