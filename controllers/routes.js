@@ -73,10 +73,21 @@ router.post("/articles/comment/:id", function(req, res) {
     if (err) console.log(err);
     else {
       Article.findOneAndUpdate({_id: req.params.id}, { $push: {comments: doc._id}}, {new: true}, function(error, newdoc) {
-        if (error) res.send(error);
+        if (error) console.log(error);
         else res.send(newdoc);
       });
     }
+  });
+});
+
+router.delete("/articles/comment/:id", function(req, res) {
+  Comment.findOne({ _id: req.params.id }).remove().exec(function(err, doc) {
+    if (err) console.log(err);
+    else {
+      Article.findOneAndUpdate({ _id: req.body.id}, { $pull: {comments: req.params.id }}, function(error, newdoc) {
+        if (error) console.log(error);
+      });
+    };
   });
 });
 

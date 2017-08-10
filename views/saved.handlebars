@@ -67,12 +67,14 @@
           <div class="form-group">
             <label for="comment-name">Name</label>
             <input type="text" class="form-control" id="comment-name" placeholder="Name">
+            <p class="validate" id="name-validate">Please enter your name.</p>
           </div>
           <div class="form-group">
             <label for="comment-textarea">Comment</label>
             <textarea class="form-control" id="comment-textarea" rows="3" placeholder="Comment"></textarea>
+            <p class="validate" id="comment-validate">Please enter your name.</p>
           </div>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="comment-save">Save</button>
+          <button type="button" class="btn btn-secondary" id="comment-save">Save</button>
         </form>
       </div>
       <div class="modal-footer">
@@ -81,74 +83,4 @@
     </div>
   </div>
 </div>
-
-<script>
-  $.get("/articles/saved", function(data) {
-    data.forEach(function(val) {
-      var link = $("<a>").attr("href", "http://m.mlb.com" + val.url).text(val.heading);
-      var heading = $("<h4>").addClass("heading panel-heading").html(link);
-      var saveButton = $("<button>").addClass("btn btn-secondary save-button");
-      saveButton.attr("type", "button").attr("data-id", val._id).attr("value", false).text("Remove");
-      var commentButton = $("<button>").addClass("btn btn-secondary comment-button");
-      commentButton.attr("type", "button").attr("data-id", val._id).text("Comment");
-      var summary = $("<p>").addClass("summary").text(val.summary);
-      var newDiv = $("<div>").addClass("panel panel-default article-div").attr("id", val._id);
-      var panelHeading = $("<div>").addClass("panel-heading");
-      var panelBody = $("<div>").addClass("panel-body");
-      panelHeading.append(heading);
-      panelHeading.append(saveButton);
-      panelHeading.append(commentButton);
-      panelBody.append(summary);
-      newDiv.append(panelHeading);
-      newDiv.append(panelBody);
-      $("#saved-articles").append(newDiv);
-    });
-  });
-
-  $("body").on("click", ".comment-button", function() {
-    var id = $(this).attr("data-id");
-    $(".modal-title").text("Comments for Article " + id);
-    $("#comment-save").attr("data-id", id);
-    $("#comment-text").empty();
-
-    $.get("/articles/" + id, function(data) {
-      console.log(data.comments);
-      if (data.comments.length === 0) {
-        var li = $("<li>").addClass("list-group-item text-center").text("No comments for this article yet.");
-        $("#comment-text").append(li);
-      }
-      else {
-        data.comments.forEach(function(val) {
-          var li = $("<li>").addClass("list-group-item text-center").text(val.message + " " + val.author);
-          $("#comment-text").append(li);
-        });
-      }
-    });
-    $("#comment-modal").modal("toggle");
-  });
-
-  $("#comment-save").on("click", function() {
-    var name = $("#comment-name").val();
-    var text = $("#comment-textarea").val();
-    var id = $(this).attr("data-id");
-    var comment = {
-      author: name,
-      message: text
-    }
-    $.post("/articles/comment/" + id, comment, function(data) {
-      $("#comment-name").val("");
-      $("#comment-textarea").val(""); 
-    });
-  });
-
-  $("body").on("click", ".save-button", function() {
-    var id = $(this).attr("data-id")
-    var saved = $(this).attr("value");
-    var data = { saved: saved }
-    $.post("/articles/saved/" + id, data, function(data) {
-      console.log(data);
-      id = "#" + id;
-      $(id).remove();
-    });
-  });
-</script>
+<script src="/assets/js/saved.js"></script>
