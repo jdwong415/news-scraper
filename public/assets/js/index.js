@@ -3,7 +3,6 @@ getArticles();
 // Scrape new articles
 $("#scrape").on("click", function() {
   $.get("/scrape", function(data) {
-    console.log(data);
     if (data.count === 0) {
       $("#scrape-text").text("There are no new articles to scrape.");
     }
