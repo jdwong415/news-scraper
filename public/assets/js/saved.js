@@ -1,6 +1,6 @@
 getSavedArticles();
 
-// Get comments
+// Show comments
 $("body").on("click", ".comment-button", function() {
   var id = $(this).attr("data-id");
   $(".modal-title").text("Comments for Article " + id);
@@ -38,9 +38,9 @@ $("#comment-save").on("click", function() {
     }
     $.post("/articles/comment/" + id, comment, function(data) {
       $("#comment-name").val("");
-      $("#comment-textarea").val(""); 
+      $("#comment-textarea").val("");
+      getComments(id);
     });
-    getComments(id);
   }
 });
 
@@ -54,8 +54,9 @@ $("body").on("click", ".delete-comment", function() {
     data: {
       id: articleId
     }
+  }).done(function() {
+    getComments(articleId);
   });
-  getComments(articleId);
 });
 
 // Remove article from saved

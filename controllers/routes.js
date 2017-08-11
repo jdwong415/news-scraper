@@ -102,6 +102,7 @@ router.delete("/articles/comment/:id", function(req, res) {
     else {
       Article.findOneAndUpdate({ _id: req.body.id}, { $pull: {comments: req.params.id }}, function(error, newdoc) {
         if (error) console.log(error);
+        else res.send(newdoc);
       });
     };
   });
